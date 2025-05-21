@@ -24,11 +24,11 @@
         <div class="d-flex justify-content-center">
             <h1 class="text-center">Crear una nueva cuenta</h1>
         </div>
-            <form>
+            <form action="../php/Resgistro.php" method="post">
             <!-- Campo de correo a ancho completo -->
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
             </div>
 
             <!-- Agrupación en dos columnas -->
@@ -45,7 +45,7 @@
 
                 <div class="col-md-6 mb-3">
                 <label for="contraseña" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contraseña" placeholder="Ingrese su contraseña" required>
+                <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Ingrese su contraseña" required>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -59,18 +59,31 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
+                <label for="edad" class="form-label">Edad</label>
+                <input type="number" name="edad" id="edad" class="form-control" placeholder="Ingrese su edad" >
+                </div>
+
+                <div class="col-md-6 mb-3">
                 <label for="altura" class="form-label">Altura (en cm)</label>
                 <input type="number" step="0.01" class="form-control" id="altura" name="altura" placeholder="Ej. 170.50" required>
                 </div>
 
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6 mb-3">
                 <label for="peso" class="form-label">Peso (en kg)</label>
                 <input type="number" step="0.01" class="form-control" id="peso" name="peso" placeholder="Ej. 65.80" required>
                 </div>
+
+                <div class="col-md-6 mb-3" id="pesoObjetivoContainer" style="display:none;">
+                  <label for="peso_objetivo" class="form-label">Peso objetivo (elige dentro del rango)</label>
+                  <input type="number" step="0.01" class="form-control" id="peso_objetivo" name="peso_objetivo" placeholder="Selecciona tu peso objetivo" required>
+                  <small id="rangoPesoObjetivo" class="form-text text-muted"></small>
+                </div>
             </div>
+                
 
             <div class="mb-3">
               <label for="factor" class="form-label">Factor de actividad</label>
+              
               <select id="factor" name="factor" class="form-select" required>
               <option value="" disabled selected>Seleccione su factor de actividad</option>
               <option value="1.2">Sedentario</option>
@@ -92,5 +105,44 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  const alturaInput = document.getElementById('altura');
+  const pesoObjetivoContainer = document.getElementById('pesoObjetivoContainer');
+  const pesoObjetivoInput = document.getElementById('peso_objetivo');
+  const rangoTexto = document.getElementById('rangoPesoObjetivo');
+
+  alturaInput.addEventListener('input', () => {
+    const alturaCm = parseFloat(alturaInput.value);
+    if (alturaCm > 0) {
+      const alturaM = alturaCm / 100;
+      const pesoMin = (18.5 * alturaM * alturaM).toFixed(2);
+      const pesoMax = (24.9 * alturaM * alturaM).toFixed(2);
+
+      rangoTexto.textContent = `Rango saludable: ${pesoMin} kg - ${pesoMax} kg`;
+      pesoObjetivoInput.min = pesoMin;
+      pesoObjetivoInput.max = pesoMax;
+      pesoObjetivoInput.value = '';  // Limpiar campo peso objetivo
+      pesoObjetivoContainer.style.display = 'block';
+    } else {
+      pesoObjetivoContainer.style.display = 'none';
+      pesoObjetivoInput.value = '';
+      rangoTexto.textContent = '';
+    }
+  });
+
+  // Opcional: validar que peso objetivo esté dentro del rango al cambiar el valor
+  pesoObjetivoInput.addEventListener('input', () => {
+    const peso = parseFloat(pesoObjetivoInput.value);
+    const min = parseFloat(pesoObjetivoInput.min);
+    const max = parseFloat(pesoObjetivoInput.max);
+
+    if (peso < min || peso > max) {
+      pesoObjetivoInput.setCustomValidity(`El peso debe estar entre ${min} y ${max} kg`);
+    } else {
+      pesoObjetivoInput.setCustomValidity('');
+    }
+  });
+</script>
+
 </body>
 </html>
