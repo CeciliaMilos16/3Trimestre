@@ -20,7 +20,7 @@
     </div>
     <h1>Fit-Track</h1>
     <h3>Tu bienestar empieza aquí</h3>
-    <a href="Registrarse.html" class="btn btn-custom mb-3">Comenzar</a>
+    <a href="Registrarse.php" class="btn btn-custom mb-3">Comenzar</a>
     <div>
     <a href="Iniciar_sesion.html">Ya tengo una cuenta</a>
     </div>

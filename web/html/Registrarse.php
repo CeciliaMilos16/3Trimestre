@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/Login.css" />
     <link rel="icon" href="../imagenes/Variaciones del logo FitTrack (2).png" type="image/png">
 </head>
+
 <body class="body-1 d-flex justify-content-center align-items-center min-vh-100">
 
   <div class="container container_3 shadow-lg">
@@ -24,11 +25,13 @@
         <div class="d-flex justify-content-center">
             <h1 class="text-center">Crear una nueva cuenta</h1>
         </div>
-            <form action="../php/Resgistro.php" method="post">
+            <form id="registroForm" action="../php/Registro.php" method="post">
             <!-- Campo de correo a ancho completo -->
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+                <div id="mensaje-correo" class="form-text text-white"></div>
+                <div class="invalid-feedback">Ingrese una direccion de correo valida.</div>
             </div>
 
             <!-- Agrupación en dos columnas -->
@@ -36,46 +39,62 @@
                 <div class="col-md-6 mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese su nombre" required maxlength="20">
+                <div id="mensaje-nombre"></div>
+                <div class="invalid-feedback">Este campo no puede estar vacío.</div>
                 </div>
 
                 <div class="col-md-6 mb-3">
                 <label for="apellido" class="form-label">Apellido</label>
                 <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Ingrese su apellido" required maxlength="20">
+                <div id="mensaje-apellido"></div>
+                <div class="invalid-feedback">Este campo no puede estar vacío.</div>
                 </div>
 
                 <div class="col-md-6 mb-3">
                 <label for="contraseña" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Ingrese su contraseña" required>
+                <input type="password" class="form-control" id="contrasena" name="contraseña" placeholder="Ingrese su contraseña" required>
+                <div class="invalid-feedback">Este campo no puede estar vacío.</div>
+                <div id="mensaje-contrasena"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
                 <label for="sexo" class="form-label">Sexo</label>
+                <div class="invalid-feedback">Seleccione una opcion.</div>
                 <select id="sexo" name="sexo" class="form-select" required>
                     <option value="" disabled selected>Seleccione su sexo</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                     <option value="Otro">Otro</option>
                 </select>
+                <div id="mensaje-sexo"></div>
                 </div>
 
-                <div class="col-md-6 mb-3">
+
+               <div class="col-md-6 mb-3">
                 <label for="edad" class="form-label">Edad</label>
-                <input type="number" name="edad" id="edad" class="form-control" placeholder="Ingrese su edad" >
-                </div>
+                <input type="number" class="form-control" id="edad" name="edad" placeholder="Ingrese su edad" required>
+                <div id="mensaje-edad" class="invalid-feedback d-block" style="color: white;"></div>
+              </div>
+              
+
+               <div class="col-md-6 mb-3">
+                <label for="altura" class="form-label">Altura (cm)</label>
+                <input type="number" class="form-control" id="altura" name="altura" placeholder="Ingrese su altura" required>
+                <div id="mensaje-altura" class="invalid-feedback" style="color: white;"></div>
+              </div>
+
 
                 <div class="col-md-6 mb-3">
-                <label for="altura" class="form-label">Altura (en cm)</label>
-                <input type="number" step="0.01" class="form-control" id="altura" name="altura" placeholder="Ej. 170.50" required>
+                  <label for="peso" class="form-label">Peso (kg)</label>
+                  <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese su peso" required>
+                  <div id="mensaje-peso" class="invalid-feedback" style="color: white;"></div>
                 </div>
 
-                <div class="col-md-6 mb-3">
-                <label for="peso" class="form-label">Peso (en kg)</label>
-                <input type="number" step="0.01" class="form-control" id="peso" name="peso" placeholder="Ej. 65.80" required>
-                </div>
 
-                <div class="col-md-6 mb-3" id="pesoObjetivoContainer" style="display:none;">
+                <div class="col-md-6 mb-3" id="pesoObjetivoContainer">
                   <label for="peso_objetivo" class="form-label">Peso objetivo (elige dentro del rango)</label>
                   <input type="number" step="0.01" class="form-control" id="peso_objetivo" name="peso_objetivo" placeholder="Selecciona tu peso objetivo" required>
+                  <div id="mensaje-peso-objetivo" class="invalid-feedback" style="color: white;"></div>
                   <small id="rangoPesoObjetivo" class="form-text text-muted"></small>
                 </div>
             </div>
@@ -92,6 +111,7 @@
               <option value="1.725">Intenso (6-7 días/semana)</option>
               <option value="1.9">Muy intenso (trabajo físico pesado)</option>
             </select> 
+            <div class="invalid-feedback">Seleccione una opcion.</div>
             </div>
 
             <!-- BOTON CENTRADO -->
@@ -103,46 +123,6 @@
       </div>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-  const alturaInput = document.getElementById('altura');
-  const pesoObjetivoContainer = document.getElementById('pesoObjetivoContainer');
-  const pesoObjetivoInput = document.getElementById('peso_objetivo');
-  const rangoTexto = document.getElementById('rangoPesoObjetivo');
-
-  alturaInput.addEventListener('input', () => {
-    const alturaCm = parseFloat(alturaInput.value);
-    if (alturaCm > 0) {
-      const alturaM = alturaCm / 100;
-      const pesoMin = (18.5 * alturaM * alturaM).toFixed(2);
-      const pesoMax = (24.9 * alturaM * alturaM).toFixed(2);
-
-      rangoTexto.textContent = `Rango saludable: ${pesoMin} kg - ${pesoMax} kg`;
-      pesoObjetivoInput.min = pesoMin;
-      pesoObjetivoInput.max = pesoMax;
-      pesoObjetivoInput.value = '';  // Limpiar campo peso objetivo
-      pesoObjetivoContainer.style.display = 'block';
-    } else {
-      pesoObjetivoContainer.style.display = 'none';
-      pesoObjetivoInput.value = '';
-      rangoTexto.textContent = '';
-    }
-  });
-
-  // Opcional: validar que peso objetivo esté dentro del rango al cambiar el valor
-  pesoObjetivoInput.addEventListener('input', () => {
-    const peso = parseFloat(pesoObjetivoInput.value);
-    const min = parseFloat(pesoObjetivoInput.min);
-    const max = parseFloat(pesoObjetivoInput.max);
-
-    if (peso < min || peso > max) {
-      pesoObjetivoInput.setCustomValidity(`El peso debe estar entre ${min} y ${max} kg`);
-    } else {
-      pesoObjetivoInput.setCustomValidity('');
-    }
-  });
-</script>
-
+  <script src="validacion.js"></script>
 </body>
 </html>
