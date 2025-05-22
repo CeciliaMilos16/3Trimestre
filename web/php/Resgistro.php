@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $edad = intval($_POST['edad']);
         $peso_objetivo = floatval($_POST['peso_objetivo']);
 
-        $password_hash = password_hash($contraseña, PASSWORD_DEFAULT);
+        //$password_hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
         // Calcular IMC actual
         $imc = $peso / ($altura * $altura);
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             '$nombre', 
             '$apellido', 
             '$email', 
-            '$password_hash', 
+            '$contraseña', 
             '$sexo', 
             $altura, 
             $peso, 

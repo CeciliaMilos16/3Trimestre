@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -132,13 +136,6 @@ public class RegistroFrame extends JFrame {
 		lblNewLabel_7.setBounds(301, 236, 109, 27);
 		panel.add(lblNewLabel_7);
 		
-	
-		//BOTON PARA INGRESAR
-				RoundedButton btnNewButton = new RoundedButton("Comenzar", 30);
-				btnNewButton.setBounds(416, 344, 134, 40);
-				panel.add(btnNewButton);
-	
-
 		// CAMPO: CORREO
 		RoundedTextField txtCorreo = new RoundedTextField(30); // 30 es el radio de redondez
 
@@ -154,6 +151,59 @@ public class RegistroFrame extends JFrame {
 		txtContrasena.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 12));
 		txtContrasena.setBounds(301, 268, 370, 33);
 		panel.add(txtContrasena);
+		
+	
+		//BOTON PARA INGRESAR
+		RoundedButton btnNewButton = new RoundedButton("Comenzar", 30);
+		btnNewButton.setBounds(416, 344, 134, 40);
+		panel.add(btnNewButton);
+	
+		btnNewButton.addActionListener(e -> {
+		    String correo = txtCorreo.getText();
+		    String contrasena = new String(txtContrasena.getPassword());
+
+		    // Validar que no estén vacíos
+		    if (correo.isEmpty() || contrasena.isEmpty()) {
+		        javax.swing.JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+		        return;
+		    }
+
+		    try {
+		        // Conexión a tu base de datos
+		        Connection conn = ConexionDB.getConnection();
+
+		        // Consulta preparada para verificar si existe el usuario
+		        String sql = "SELECT * FROM usuario WHERE CORREO = ? AND CONTRASEÑA = ?";
+		        PreparedStatement stmt = conn.prepareStatement(sql);
+		        stmt.setString(1, correo);
+		        stmt.setString(2, contrasena);
+
+		        ResultSet rs = stmt.executeQuery();
+
+		        if (rs.next()) {
+		            // Usuario válido, abrir panel principal
+		            javax.swing.JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+
+		            // Aquí abres el nuevo JFrame (panel principal)
+		            PanelPrincipal ventanaPrincipal = new PanelPrincipal();
+		            ventanaPrincipal.setVisible(true);
+		            this.dispose(); // Cierra la ventana actual
+		        } else {
+		            javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
+		        }
+
+		        rs.close();
+		        stmt.close();
+		        conn.close();
+
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		        javax.swing.JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos");
+		    }
+		});
+
+
+	
 
 	
 
