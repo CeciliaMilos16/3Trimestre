@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const mensajePeso = document.getElementById("mensaje-peso");
   const mensajePesoObjetivo = document.getElementById("mensaje-peso-objetivo");
 
+  const form = document.getElementById("registroForm");
+
 
 
   const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
@@ -205,5 +207,15 @@ edadInput.addEventListener("input", function () {
 
 });
 
+form.addEventListener("submit", function(event) {
+  // Aquí verificamos si hay algún campo inválido
+  // Busca si existe algún elemento con la clase 'is-invalid'
+  const hayErrores = form.querySelectorAll('.is-invalid').length > 0;
+
+  if (hayErrores) {
+    event.preventDefault(); // Detiene el envío del formulario
+    alert("Por favor corrige los errores antes de enviar el formulario.");
+  }
+});
 });
 

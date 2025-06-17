@@ -1,4 +1,4 @@
-package Sesiones;
+package BaseDeDatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,3 +37,4 @@ public class ConexionDB {
         getConnection();
     }
 }
+
