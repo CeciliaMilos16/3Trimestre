@@ -1,8 +1,9 @@
 package Graficas;
 
-import javax.swing.JPanel;
-
 import javax.swing.*;
+
+import Objetos.AlimentoConsumido;
+
 import java.awt.*;
 import java.util.ArrayList;
 

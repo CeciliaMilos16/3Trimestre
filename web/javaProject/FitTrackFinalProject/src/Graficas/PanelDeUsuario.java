@@ -24,7 +24,7 @@ public class PanelDeUsuario extends JPanel {
 
 	    // Fondo
 	    JLabel fondo = new JLabel();
-	    //fondo.setIcon(new ImageIcon("C:\\Users\\cecil\\Downloads\\imagenWeb\\fondo1.png"));
+	    fondo.setIcon(new ImageIcon("C:\\Users\\cecil\\Downloads\\imagenWeb\\fondo1.png"));
 	    fondo.setBounds(0, 0, 1018, 861);
 	    add(fondo);
 	  
@@ -35,7 +35,9 @@ public class PanelDeUsuario extends JPanel {
 	    panelBlanco.setLayout(null);
 	    panelBlanco.setOpaque(false);
 	    add(panelBlanco);
-	 // Botón de Registrar Alimento
+	
+	    
+	    // Botón de Registrar Alimento
 	    ImageIcon iconoRegistrarAlimento = new ImageIcon("C:\\Users\\cecil\\Downloads\\imagenWeb\\registrarAlimento.jpg");
 
 	    JButton btnRegistrar = new JButton();
@@ -57,9 +59,15 @@ public class PanelDeUsuario extends JPanel {
 	    });
 
 	    btnRegistrar.addActionListener(e -> {
-	        System.out.println("¡Botón de Registrar Alimento pulsado!");
+	    	cardLayout.show(contentPane, "registrar alimentos");
 	    });
+	    
+	    RoundedButton btnRegistrarAlimento = new RoundedButton("Registrar Alimentos", 30);
+	    btnRegistrarAlimento.setBounds(35, 220, 233, 40); 
+        panelBlanco.add(btnRegistrarAlimento);
+        btnRegistrarAlimento.addActionListener(e -> cardLayout.show(contentPane, "registrar alimentos"));
 
+        
 	    //Boton plan nutricional
 	    ImageIcon iconoOriginalNutri = new ImageIcon("C:\\Users\\cecil\\Downloads\\imagenWeb\\planNutricional.jpg");
 
@@ -82,13 +90,19 @@ public class PanelDeUsuario extends JPanel {
 	    });
 
 	    btnPlanNutri.addActionListener(e -> {
-	        System.out.println("¡Botón de Plan Nutricional pulsado!");
+	    	cardLayout.show(contentPane, "plan nutricional");
 	    });
+	    
+	    RoundedButton btnPlanNutric = new RoundedButton("Planes Nutricionales", 30);
+	    btnPlanNutric.setBounds(278, 217, 219, 40); 
+        panelBlanco.add(btnPlanNutric);
+        btnPlanNutric.addActionListener(e -> cardLayout.show(contentPane, "plan nutricional"));
 
 	    panelBlanco.add(btnPlanNutri);
 
 
-	    // Botón de Plan de Ejercicio
+	    
+	  // Botón de Plan de Ejercicio
 	    ImageIcon iconoPlanEjer = new ImageIcon("C:\\Users\\cecil\\Downloads\\imagenWeb\\planEjercicio.jpg");
 	
 
@@ -111,8 +125,13 @@ public class PanelDeUsuario extends JPanel {
 	    });
 
 	    btnPlanEjer.addActionListener(e -> {
-	        System.out.println("¡Botón de Plan de Ejercicio pulsado!");
+	    	cardLayout.show(contentPane, "plan ejercicio");
 	    });
+	    
+	    RoundedButton btnPlanEjerc = new RoundedButton("Planes De Ejercicio", 30);
+	    btnPlanEjerc.setBounds(35, 493, 233, 40); 
+        panelBlanco.add(btnPlanEjerc);
+        btnPlanEjerc.addActionListener(e -> cardLayout.show(contentPane, "plan ejercicio"));
 	    panelBlanco.add(btnPlanEjer);
 
 
@@ -166,7 +185,8 @@ public class PanelDeUsuario extends JPanel {
         btnConfig.setOpaque(false);
 
         btnConfig.addActionListener(e -> {
-            System.out.println("¡Botón de configuración pulsado!");
+        	cardLayout.show(contentPane, "configuracion");
+
         });
 
         // Botón de notificaciones

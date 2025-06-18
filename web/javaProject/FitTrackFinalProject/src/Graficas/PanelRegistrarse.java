@@ -17,6 +17,7 @@ public class PanelRegistrarse extends JPanel {
         setBounds(0, 0, 820, 700);
 
         JLabel fondo = new JLabel();
+        fondo.setIcon(new ImageIcon("C:\\Users\\cecil\\Downloads\\imagenWeb\\fondo1.png"));
         fondo.setBounds(0, 0, 1018, 861);
         add(fondo);
 

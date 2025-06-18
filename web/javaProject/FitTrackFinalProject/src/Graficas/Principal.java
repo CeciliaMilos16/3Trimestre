@@ -53,8 +53,8 @@ public class Principal extends JFrame {
         JPanel panelRegistrase = new PanelRegistrarse(cardLayout, contentPane);
         contentPane.add(panelRegistrase,"registrarse");
         
-        JPanel panelConfiguracion = new PanelConfiguracion(cardLayout, contentPane);
-        contentPane.add(panelConfiguracion,"configuracion");
+        PanelConfiguracion panelConfiguracion = new PanelConfiguracion(cardLayout, contentPane);
+        contentPane.add(panelConfiguracion, "configuracion");
         
         JPanel panelRegistrarAlimentos= new PanelregistrarAlimentos(cardLayout, contentPane);
         contentPane.add(panelRegistrarAlimentos,"registrar alimentos");
@@ -63,7 +63,7 @@ public class Principal extends JFrame {
         contentPane.add(panelPlanNutricional,"plan nutricional");
         
         JPanel panelPlanEjercicio = new PlanEjercicio(cardLayout, contentPane);
-        contentPane.add(panelPlanEjercicio,"plan nutricional");
+        contentPane.add(panelPlanEjercicio,"plan ejercicio");
 
         // Agregarlas al CardLayout
         contentPane.add(panelBienvenida, "bienvenida");

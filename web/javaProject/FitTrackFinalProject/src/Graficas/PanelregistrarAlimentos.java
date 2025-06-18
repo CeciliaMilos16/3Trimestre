@@ -1,38 +1,90 @@
 package Graficas;
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class PanelregistrarAlimentos extends JPanel {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    private CardLayout cardLayout;
+    private JPanel panelCambiante;
 
-	/**
-	 * Create the panel.
-	 */
-	public PanelregistrarAlimentos(CardLayout cardLayout, JPanel contentPane) {
-	       setLayout(null);
-	        setBounds(0, 0, 820, 700);
+    public PanelregistrarAlimentos(CardLayout cardLayout, JPanel contentPane) {
+        setLayout(new BorderLayout());
+        this.cardLayout = cardLayout;
 
-	        JLabel fondo = new JLabel();
-	        fondo.setBounds(0, 0, 1018, 861);
-	        add(fondo);
+        // Panel de botones arriba
+        JPanel panelBotones = new JPanel();
+        JButton btnRegistrar = new JButton("Registrar Alimentos");
+        JButton btnAgregar = new JButton("Agregar Alimentos");
+        JButton btnHistorial = new JButton("Historial Consumo");
+        JButton btnAtras = new JButton("Atrás");
 
-	        JPanel panel = new JPanel() {
-	            protected void paintComponent(Graphics g) {
-	                super.paintComponent(g);
-	                Graphics2D g2 = (Graphics2D) g;
-	                GradientPaint gp = new GradientPaint(0, 0, new Color(0, 70, 80), 0, getHeight(), new Color(50, 220, 230));
-	                g2.setPaint(gp);
-	                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 40, 40);
-	            }
-	        };
-	}
+        panelBotones.add(btnRegistrar);
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnHistorial);
+        panelBotones.add(btnAtras);
+        add(panelBotones, BorderLayout.NORTH);
 
+        // Panel principal con CardLayout
+        panelCambiante = new JPanel(new CardLayout());
+        panelCambiante.add(crearPanelRegistrar(), "Registrar");
+        panelCambiante.add(crearPanelAgregar(), "Agregar");
+        panelCambiante.add(crearPanelHistorial(), "Historial");
+        add(panelCambiante, BorderLayout.CENTER);
+
+        // Acción de los botones
+        btnRegistrar.addActionListener(e -> cambiarPanel("Registrar"));
+        btnAgregar.addActionListener(e -> cambiarPanel("Agregar"));
+        btnHistorial.addActionListener(e -> cambiarPanel("Historial"));
+        btnAtras.addActionListener(e -> cardLayout.show(contentPane, "principal"));
+
+        cambiarPanel("Registrar"); // Panel por defecto
+    }
+
+    private void cambiarPanel(String nombrePanel) {
+        CardLayout cl = (CardLayout) panelCambiante.getLayout();
+        cl.show(panelCambiante, nombrePanel);
+    }
+
+    private JPanel crearPanelRegistrar() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JLabel label = new JLabel("Aquí irá el formulario para registrar alimentos", SwingConstants.CENTER);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(label, BorderLayout.CENTER);
+
+        // Más adelante aquí puedes insertar el mismo formulario que usó tu amiga:
+        // nombre, calorías, cantidad, etc.
+        // Y en lugar de guardar en ArrayList, harás INSERT en la base de datos.
+
+        return panel;
+    }
+
+    private JPanel crearPanelAgregar() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JLabel label = new JLabel("Aquí se podrán agregar alimentos consumidos", SwingConstants.CENTER);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(label, BorderLayout.CENTER);
+
+        // Más adelante aquí puedes cargar los alimentos desde tu base de datos
+        // y permitir seleccionar uno y registrar la cantidad consumida.
+
+        return panel;
+    }
+
+    private JPanel crearPanelHistorial() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setText("Aquí se mostrará el historial de alimentos consumidos\n(cargados desde tu base de datos)");
+
+        panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+        return panel;
+    }
 }
